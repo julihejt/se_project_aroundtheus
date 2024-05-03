@@ -1,1 +1,168 @@
-<!doctype html><html lang="en"><head><title>Around The US</title><meta charset="UTF-8"/><meta name="description" content="Travel to different places in the US"/><meta name="keywords" content="travel, vacation, US"/><meta name="author" content="Julie Hejtmanek"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><link rel="icon" href="favicon.ico"><script defer="defer" src="main.js"></script><link href="main.css" rel="stylesheet"></head><body class="page"><div class="page__content"><header class="header page__section"><img class="header__logo" src="4e8e0a1d604782a0dff8.svg" alt="Around the U.S logo"/></header><main class="content"><section class="profile"><img src="91de2c5fc57d3f70efd2.png" alt="avatar" class="profile__image"/><div class="profile__info"><h1 class="profile__title">Jacques Cousteau</h1><button class="profile__edit-button" type="button" aria-label="profile__edit-button" id="profile-edit-button"></button><p class="profile__description" id="profile__description">Explorer</p></div><button class="profile__add-button" type="button" aria-label="profile__add-button"></button></section><section class="cards page__section"><ul class="cards__list"></ul></section></main><footer class="footer page__section"><p class="footer__copyright">© 2022 Around The U.S.</p></footer></div><div class="modal" id="profile-edit-modal"><div class="modal__container"><button class="modal__close" id="modal-close-button"></button><p class="modal__heading">Edit Profile</p><form class="modal__form" id="profile-edit-form"><label class="modal__label"><input name="title" id="profile-title-input" minlength="2" maxlength="40" placeholder="Name" class="modal__input" required/><span class="modal__span" id="profile-title-input-error"></span></label> <label class="modal__label"><input name="description" id="profile-description-input" minlength="2" maxlength="200" placeholder="description" class="modal__input" required/> <span class="modal__span" id="profile-description-input-error"></span></label> <button class="modal__button modal__button_submit" id="edit-save-button" type="submit"><span class="modal__saved">Save</span></button></form></div></div><div class="modal" id="profile__add-form"><div class="modal__container"><button class="modal__close" id="profile__close-modal"></button><p class="modal__heading">New place</p><form class="modal__form" id="add__card-form"><label class="modal__label"><input name="title" id="addCard-title-input" minlength="2" maxlength="40" placeholder="title" class="modal__input" required/><span class="modal__span" id="addCard-title-input-error"></span></label> <label class="modal__label"><input type="url" name="url" id="addCard-description-input" placeholder="image url" class="modal__input" minlength="2" maxlength="200" required/><span class="modal__span" id="addCard-description-input-error"></span></label> <button class="modal__button" id="edit-save-button" type="submit" disabled="disabled"><span class="modal__saved">Save</span></button></form></div></div><template id="card-template"><li class="card"><button class="card__delete-button" type="button"></button> <img src="" alt="" class="card__image"/><div class="card__description"><h2 class="card__title"></h2><button class="card__like-button" type="button" aria-label="card__like-button"></button></div></li></template><div class="modal" id="card__image_modal"><div class="modal__image_container"><img class="modal__image" id="modal__image" alt="" src=""/><h4 class="modal__image_description" id="modal__image_description"></h4><button class="modal__close" id="modal__image-close-button"></button></div></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Around The US</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Travel to different places in the US" />
+    <meta name="keywords" content="travel, vacation, US" />
+    <meta name="author" content="Julie Hejtmanek" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body class="page">
+    <div class="page__content">
+      <header class="header page__section">
+        <img
+          class="header__logo"
+          src="<%=require('./images/Header.svg')%>"
+          alt="Around the U.S logo"
+        />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            src="<%=require('./images/jacques-cousteau(1).png')%>"
+            alt="avatar"
+            class="profile__image"
+          />
+          <div class="profile__info">
+            <h1 class="profile__title">Jacques Cousteau</h1>
+            <button
+              class="profile__edit-button"
+              type="button"
+              aria-label="profile__edit-button"
+              id="profile-edit-button"
+            ></button>
+            <p class="profile__description" id="profile__description">
+              Explorer
+            </p>
+          </div>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="profile__add-button"
+          ></button>
+        </section>
+        <section class="cards page__section">
+          <ul class="cards__list"></ul>
+        </section>
+      </main>
+      <footer class="footer page__section">
+        <p class="footer__copyright">© 2022 Around The U.S.</p>
+      </footer>
+    </div>
+
+    <div class="modal" id="profile-edit-modal">
+      <div class="modal__container">
+        <button class="modal__close" id="modal-close-button"></button>
+        <p class="modal__heading">Edit Profile</p>
+        <form class="modal__form" id="profile-edit-form">
+          <label class="modal__label"
+            ><input
+              type="text"
+              name="title"
+              id="profile-title-input"
+              minlength="2"
+              maxlength="40"
+              placeholder="Name"
+              class="modal__input"
+              required
+            /><span class="modal__span" id="profile-title-input-error"></span>
+          </label>
+          <label class="modal__label">
+            <input
+              type="text"
+              name="description"
+              id="profile-description-input"
+              minlength="2"
+              maxlength="200"
+              placeholder="description"
+              class="modal__input"
+              required
+            />
+            <span
+              class="modal__span"
+              id="profile-description-input-error"
+            ></span>
+          </label>
+          <button
+            class="modal__button modal__button_submit"
+            id="edit-save-button"
+            type="submit"
+          >
+            <span class="modal__saved">Save</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- ----------------------- add card modal -------------------------->
+    <div class="modal" id="profile__add-form">
+      <div class="modal__container">
+        <button class="modal__close" id="profile__close-modal"></button>
+        <p class="modal__heading">New place</p>
+        <form class="modal__form" id="add__card-form">
+          <label class="modal__label">
+            <input
+              type="text"
+              name="title"
+              id="addCard-title-input"
+              minlength="2"
+              maxlength="40"
+              placeholder="title"
+              class="modal__input"
+              required
+            /><span class="modal__span" id="addCard-title-input-error"></span>
+          </label>
+
+          <label class="modal__label">
+            <input
+              type="url"
+              name="url"
+              id="addCard-description-input"
+              placeholder="image url"
+              class="modal__input"
+              minlength="2"
+              maxlength="200"
+              required
+            /><span
+              class="modal__span"
+              id="addCard-description-input-error"
+            ></span>
+          </label>
+          <button
+            class="modal__button"
+            id="edit-save-button"
+            type="submit"
+            disabled
+          >
+            <span class="modal__saved">Save</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- ----------------------- card template -------------------------->
+    <template id="card-template">
+      <li class="card">
+        <button class="card__delete-button" type="button"></button>
+        <img src="" alt="" class="card__image" />
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <button
+            class="card__like-button"
+            type="button"
+            aria-label="card__like-button"
+          ></button>
+        </div>
+      </li>
+    </template>
+    <!-- ----------------------- modal image -------------------------->
+    <div class="modal" id="card__image_modal">
+      <div class="modal__image_container">
+        <img class="modal__image" id="modal__image" alt="" src="" />
+        <h4 class="modal__image_description" id="modal__image_description"></h4>
+        <button class="modal__close" id="modal__image-close-button"></button>
+      </div>
+    </div>
+    <script src="pages/index.js" type="module"></script>
+  </body>
+</html>

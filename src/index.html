@@ -85,18 +85,14 @@
               id="profile-description-input-error"
             ></span>
           </label>
-          <button
-            class="modal__button modal__button_submit"
-            id="edit-save-button"
-            type="submit"
-          >
+          <button class="modal__button" id="edit-save-button" type="submit">
             <span class="modal__saved">Save</span>
           </button>
         </form>
       </div>
     </div>
     <!-- ----------------------- add card modal -------------------------->
-    <div class="modal" id="profile__add-form">
+    <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button class="modal__close" id="profile__close-modal"></button>
         <p class="modal__heading">New place</p>
@@ -130,10 +126,10 @@
             ></span>
           </label>
           <button
-            class="modal__button"
-            id="edit-save-button"
+            class="modal__button modal__button_disabled"
+            id="add-card-button"
             type="submit"
-            disabled
+            disabled="true"
           >
             <span class="modal__saved">Save</span>
           </button>
@@ -156,7 +152,7 @@
       </li>
     </template>
     <!-- ----------------------- modal image -------------------------->
-    <div class="modal" id="card__image_modal">
+    <div class="modal" id="preview-image-modal">
       <div class="modal__image_container">
         <img class="modal__image" id="modal__image" alt="" src="" />
         <h4 class="modal__image_description" id="modal__image_description"></h4>

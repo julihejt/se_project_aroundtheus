@@ -6,7 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import { initialCards, formSettings } from "../components/utils/constants.js";
+import { initialCards, formSettings } from "../utils/constants.js";
 import "../pages/index.css";
 
 /* -------------------------------- elements -------------------------------- */
@@ -40,10 +40,10 @@ const addForm = document.querySelector("#add__card-form");
 //const editModalWindow = document.querySelector("#profile-edit-modal");
 //const addModalWindow = document.querySelector("#profile-edit-button");
 
-const formValidation = new FormValidation(formSettings, profileEditForm);
-formValidation.enableValidation();
-const addCardValidator = new FormValidation(formSettings, addForm);
-addCardValidator.enableValidation();
+const profileFormValidator = new FormValidation(formSettings, profileEditForm);
+profileFormValidator.enableValidation();
+const addCardFormValidator = new FormValidation(formSettings, addForm);
+addCardFormValidator.enableValidation();
 const imagePopup = new PopupWithImage("#preview-image-modal");
 const section = new Section(
   { items: initialCards, renderer: createCard },
@@ -58,7 +58,6 @@ const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 const userInfo = new UserInfo({
   name: ".profile__title",
   description: "#profile__description",
-  handleEditProfileSubmit,
 });
 
 function handleImageClick(cardData) {
@@ -68,13 +67,13 @@ function handleImageClick(cardData) {
 function handleAddCardSubmit(inputValues) {
   section.addItem({ name: inputValues.title, link: inputValues.url });
   addForm.reset();
-  addCardPopup.close();
+  addCardFormValidator.disableButton();
 }
 
-function handleEditProfileSubmit() {
+function handleEditProfileSubmit(inputValues) {
   userInfo.setUserInfo({
-    name: profileTitleInput.value,
-    description: profileDescriptionInput.value,
+    name: inputValues.name,
+    description: inputValues.description,
   });
   editProfilePopup.close();
 }
@@ -85,6 +84,7 @@ function createCard(data) {
 }
 
 profileEditButton.addEventListener("click", () => {
+  const { name, description } = userInfo.getUserInfo();
   profileTitleInput.value = profileTitle.textContent.trim();
   profileDescriptionInput.value = profileDescription.textContent.trim();
   editProfilePopup.open();

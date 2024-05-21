@@ -72,7 +72,7 @@ function handleAddCardSubmit(inputValues) {
 
 function handleEditProfileSubmit(inputValues) {
   userInfo.setUserInfo({
-    name: inputValues.name,
+    name: inputValues.title,
     description: inputValues.description,
   });
   editProfilePopup.close();
@@ -85,8 +85,8 @@ function createCard(data) {
 
 profileEditButton.addEventListener("click", () => {
   const { name, description } = userInfo.getUserInfo();
-  profileTitleInput.value = profileTitle.textContent.trim();
-  profileDescriptionInput.value = profileDescription.textContent.trim();
+  profileTitleInput.value = name.trim();
+  profileDescriptionInput.value = description.trim();
   editProfilePopup.open();
 });
 

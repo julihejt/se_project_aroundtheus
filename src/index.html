@@ -136,6 +136,20 @@
         </form>
       </div>
     </div>
+    <!-- ----------------------- Delete card modal -------------------------->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          type="button"
+          id="delete-card-modal__close-button"
+        ></button>
+        <form class="modal__form">
+          <h2 class="modal__title">Are you sure?</h2>
+          <button class="modal__button" type="submit">Yes</button>
+        </form>
+      </div>
+    </div>
     <!-- ----------------------- card template -------------------------->
     <template id="card-template">
       <li class="card">
@@ -159,5 +173,25 @@
         <button class="modal__close" id="modal__image-close-button"></button>
       </div>
     </div>
+
+    <!-- ----------------------- card template -------------------------->
+    <template id="card-template">
+      <li class="card">
+        <img src="" alt="" class="card__image" />
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <button
+            type="button"
+            class="card__like-button"
+            aria-label="card__like-button"
+          ></button>
+          <button
+            type="button"
+            class="card__delete-button"
+            aria-label="card__delete-button"
+          ></button>
+        </div>
+      </li>
+    </template>
   </body>
 </html>

@@ -65,7 +65,7 @@ const userInfo = new UserInfo({
 });
 
 // Card delete popup
-const cardDeletePopup = new PopupWithConfirmation("delete-card-modal");
+const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
 cardDeletePopup.setEventListeners();
 
 // Function to handle image click

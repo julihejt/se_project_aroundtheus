@@ -6,9 +6,10 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/API.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import { initialCards, formSettings } from "../utils/constants.js";
 import "../pages/index.css";
-
 /* -------------------------------- elements -------------------------------- */
 
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -40,6 +41,8 @@ const addForm = document.querySelector("#add__card-form");
 //const editModalWindow = document.querySelector("#profile-edit-modal");
 //const addModalWindow = document.querySelector("#profile-edit-button");
 
+// Define the necessary imports and elements as before
+
 const profileFormValidator = new FormValidation(formSettings, profileEditForm);
 profileFormValidator.enableValidation();
 const addCardFormValidator = new FormValidation(formSettings, addForm);
@@ -58,18 +61,51 @@ const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 const userInfo = new UserInfo({
   name: ".profile__title",
   description: "#profile__description",
+  avatarImage: ".profile__image",
 });
 
+// Card delete popup
+const cardDeletePopup = new PopupWithConfirmation("delete-card-modal");
+cardDeletePopup.setEventListeners();
+
+// Function to handle image click
 function handleImageClick(cardData) {
   imagePopup.open(cardData);
 }
 
-function handleAddCardSubmit(inputValues) {
-  section.addItem({ name: inputValues.title, link: inputValues.url });
-  addForm.reset();
-  addCardFormValidator.disableButton();
+// Function to handle card deletion
+function handleDeleteCard(cardId) {
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      document.querySelector(`[data-id="${cardId}"]`).remove();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
+// Function to handle adding a new card
+function handleAddCardSubmit(inputValues) {
+  const cardData = {
+    name: inputValues.title,
+    link: inputValues.url,
+  };
+
+  api
+    .addCard(cardData)
+    .then((newCard) => {
+      renderCards(newCard);
+      addForm.reset();
+      addCardFormValidator.disableButton();
+      addCardPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+// Function to handle profile edit
 function handleEditProfileSubmit(inputValues) {
   userInfo.setUserInfo({
     name: inputValues.title,
@@ -78,11 +114,27 @@ function handleEditProfileSubmit(inputValues) {
   editProfilePopup.close();
 }
 
+// Function to create a card
 function createCard(data) {
-  const card = new Card(data, "#card-template", handleImageClick);
+  const card = new Card(
+    data,
+    "#card-template",
+    handleImageClick,
+    handleDeleteCard
+  );
   return card.getView();
 }
 
+// Function to render cards
+function renderCards(cardData) {
+  const cardElement = createCard(cardData);
+  section.addItem(cardElement);
+  addCardPopup.close();
+  addForm.reset();
+  addCardFormValidator.disableButton();
+}
+
+// Event listeners
 profileEditButton.addEventListener("click", () => {
   const { name, description } = userInfo.getUserInfo();
   profileTitleInput.value = name.trim();
@@ -95,3 +147,38 @@ profileAddButton.addEventListener("click", () => {
 });
 
 section.renderItems();
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "d7e04e76-ddf3-44aa-931a-ba12647359c4",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getInitialCards().then((cards) => {
+  section = new Section(
+    {
+      items: cards,
+      renderer: (cardData) => {
+        renderCards(cardData);
+      },
+    },
+    ".cards__list"
+  );
+
+  section.renderItems();
+});
+
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo({
+      name: userData.name,
+      description: userData.about,
+      avatar: userData.avatar,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });

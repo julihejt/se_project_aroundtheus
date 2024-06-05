@@ -162,6 +162,22 @@
   border-bottom: 1px solid #ff0000;
 }
 
+#delete-card-modal .modal__button {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 46px;
+}
+
+#delete-card-modal .modal__container {
+  min-width: 430px;
+  max-height: 181px;
+  display: flex;
+  align-items: center;
+  padding: 34px;
+  margin-top: 270;
+}
+
 @media screen and (max-width: 320px) {
   .modal__close {
     max-width: 100%;

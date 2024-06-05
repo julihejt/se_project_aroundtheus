@@ -2,7 +2,7 @@ import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
   constructor(popupSelector) {
-    super(popupSelector);
+    super({ popupSelector });
     //console.log(this._popupElement); //
     this._popupForm = this._popupElement.querySelector(".modal__form");
     //console.log(this._popupForm); //
@@ -29,6 +29,6 @@ export default class PopupWithConfirmation extends Popup {
       e.preventDefault();
       this._handleFormSubmit();
     });
-    super.addEventListeners();
+    super.setEventListeners();
   }
 }

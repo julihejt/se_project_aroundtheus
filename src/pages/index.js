@@ -12,6 +12,48 @@ import { initialCards, formSettings } from "../utils/constants.js";
 import "../pages/index.css";
 /* -------------------------------- elements -------------------------------- */
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "d7e04e76-ddf3-44aa-931a-ba12647359c4",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getInitialCards().then((cards) => {
+  let section = new Section(
+    {
+      items: cards,
+      renderer: (cardData) => {
+        const sectionCard = createCard(cardData);
+        section.addItem(sectionCard);
+      },
+    },
+    ".cards__list"
+  );
+
+  section.renderItems();
+});
+
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo({
+      name: userData.name,
+      description: userData.about,
+      avatar: userData.avatar,
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+const userInfo = new UserInfo({
+  name: ".profile__title",
+  description: "#profile__description",
+  avatarImage: ".profile__image",
+});
+
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 //const profileCloseButton = profileEditModal.querySelector("#modal-close-button");
@@ -58,31 +100,33 @@ const editProfilePopup = new PopupWithForm(
 );
 const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 
-const userInfo = new UserInfo({
-  name: ".profile__title",
-  description: "#profile__description",
-  avatarImage: ".profile__image",
-});
-
 // Card delete popup
 const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
 cardDeletePopup.setEventListeners();
 
 // Function to handle image click
-function handleImageClick(cardData) {
-  imagePopup.open(cardData);
+function handleImageClick({ name, link }) {
+  PopupWithImage.open({ name, link });
 }
 
 // Function to handle card deletion
 function handleDeleteCard(cardId) {
-  api
-    .deleteCard(cardId)
-    .then(() => {
-      document.querySelector(`[data-id="${cardId}"]`).remove();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  cardDeletePopup.open();
+  cardDeletePopup.setSubmitAction(() => {
+    cardDeletePopup.setLoading(true, "Deleting card...");
+    api
+      .deleteCard(card.id)
+      .then(() => {
+        card.handleDeleteCard();
+        cardDeletePopup.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        cardDeletePopup.setLoading(false, "Yes");
+      });
+  });
 }
 
 // Function to handle adding a new card
@@ -93,7 +137,7 @@ function handleAddCardSubmit(inputValues) {
   };
 
   api
-    .addCard(cardData)
+    .createNewCard(data)
     .then((newCard) => {
       renderCards(newCard);
       addForm.reset();
@@ -106,12 +150,21 @@ function handleAddCardSubmit(inputValues) {
 }
 
 // Function to handle profile edit
-function handleEditProfileSubmit(inputValues) {
-  userInfo.setUserInfo({
-    name: inputValues.title,
-    description: inputValues.description,
-  });
-  editProfilePopup.close();
+function handleEditProfileSubmit({ name, description }) {
+  profileEditPopup.setLoading(true);
+
+  api
+    .updateUserInfo(name, description)
+    .then(() => {
+      profileEditPopup.setLoading(false);
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      profileEditPopup.setLoading(false);
+    });
 }
 
 // Function to create a card
@@ -147,38 +200,3 @@ profileAddButton.addEventListener("click", () => {
 });
 
 section.renderItems();
-
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "d7e04e76-ddf3-44aa-931a-ba12647359c4",
-    "Content-Type": "application/json",
-  },
-});
-
-api.getInitialCards().then((cards) => {
-  section = new Section(
-    {
-      items: cards,
-      renderer: (cardData) => {
-        renderCards(cardData);
-      },
-    },
-    ".cards__list"
-  );
-
-  section.renderItems();
-});
-
-api
-  .getUserInfo()
-  .then((userData) => {
-    userInfo.setUserInfo({
-      name: userData.name,
-      description: userData.about,
-      avatar: userData.avatar,
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });

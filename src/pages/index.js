@@ -6,7 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-import Api from "../components/API.js";
+import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import { initialCards, formSettings } from "../utils/constants.js";
 import "../pages/index.css";
@@ -106,7 +106,7 @@ cardDeletePopup.setEventListeners();
 
 // Function to handle image click
 function handleImageClick({ name, link }) {
-  PopupWithImage.open({ name, link });
+  imagePopup.open({ name, link });
 }
 
 // Function to handle card deletion

@@ -1,5 +1,11 @@
 export default class Card {
-  constructor(data, cardSelector, handleImageClick, handleDeleteCard, handleLikeIconClick) {
+  constructor(
+    data,
+    cardSelector,
+    handleImageClick,
+    handleDeleteCard,
+    handleLikeIconClick
+  ) {
     if (data) {
       this._data = data;
     } else {

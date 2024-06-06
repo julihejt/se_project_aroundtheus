@@ -23,12 +23,4 @@ export default class PopupWithConfirmation extends Popup {
   setSubmitAction(action) {
     this._submitButton.textContent = action;
   }
-
-  setEventListeners() {
-    this._popupForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this._handleFormSubmit();
-    });
-    super.setEventListeners();
-  }
 }

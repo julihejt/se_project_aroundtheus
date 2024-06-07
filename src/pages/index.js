@@ -66,6 +66,7 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 //const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 //const addModal = document.querySelector("#profile__add-form");
 const addForm = document.querySelector("#add__card-form");
+const profileAvatarButton = document.querySelector(".profile__edit-button");
 //const placeInput = document.querySelector("#addCard-title-input");
 //const placeInputUrl = document.querySelector("#addCard-description-input");
 //const closeButtonPlace = document.querySelector("#profile__close-modal");
@@ -96,6 +97,17 @@ const editProfilePopup = new PopupWithForm(
 );
 const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 
+const profileAvatarPopup = new PopupWithForm(
+  "#profile-avatar-modal",
+  handleAvatarSubmit,
+  profileAvatarButton
+);
+
+profileAvatarButton.addEventListener("click", () => {
+  profileAvatarPopup.open();
+});
+profileAvatarPopup.setEventListeners();
+
 // Card delete popup
 const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
 cardDeletePopup.setEventListeners();
@@ -106,9 +118,23 @@ function handleImageClick({ name, link }) {
 }
 
 // Function to handle card deletion
-function handleDeleteCard(cardID) {
+function handleDeleteCard(card, id) {
   cardDeletePopup.open();
-  api.deleteCard(cardID);
+  cardDeletePopup.setSubmitAction(() => {
+    cardDeletePopup.setLoading(true, "Deleting...");
+    api
+      .deleteCard(id)
+      .then(() => {
+        card.handleDeleteCard();
+        cardDeletePopup.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        cardDeletePopup.setLoading(false, "Yes");
+      });
+  });
 }
 
 // Function to handle adding a new card
@@ -119,7 +145,7 @@ function handleAddCardSubmit(inputValues) {
   };
 
   api
-    .createNewCard(data)
+    .createNewCard(cardData)
     .then((newCard) => {
       renderCards(newCard);
       addForm.reset();
@@ -150,6 +176,22 @@ function handleEditProfileSubmit(inputValues) {
     .catch((err) => {
       console.error("Error updating profile:", err);
       // You can also display an error message to the user here
+    });
+}
+
+function handleAvatarSubmit(url) {
+  profileAvatarPopup.setLoading(true);
+  api
+    .updateAvatar(url)
+    .then((userData) => {
+      userInfo.setAvatar(userData);
+      profileAvatarPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      profileAvatarPopup.setLoading(false);
     });
 }
 

@@ -136,6 +136,31 @@
         </form>
       </div>
     </div>
+    <!-- ----------------------- Edit Avatar modal -------------------------->
+    <div class="modal" id="profile-avatar-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          type="button"
+          id="edit-avatar-close-button"
+        ></button>
+        <form class="modal__form">
+          <h1 class="modal__title">Change profile picture</h1>
+          <input
+            type="url"
+            name="url"
+            id="avatar-picture-input"
+            class="modal__image modal__input_type_url"
+            placeholder="Image url"
+            required
+          />
+          <span class="modal__error" id="avatar-picture-input-error"></span>
+          <button class="modal__button" type="submit" disabled>
+            <span class="modal__button-text">Save</span>
+          </button>
+        </form>
+      </div>
+    </div>
     <!-- ----------------------- Delete card modal -------------------------->
     <div class="modal" id="delete-card-modal">
       <div class="modal__container">

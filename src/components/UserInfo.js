@@ -17,4 +17,12 @@ export default class UserInfo {
     this._name.textContent = data.name;
     this._description.textContent = data.description;
   }
+
+  setAvatar(avatar) {
+    this._avatarImage.src = avatar;
+  }
+
+  updateAvatar(avatar) {
+    this._avatarImage.src = avatar;
+  }
 }

@@ -24,14 +24,10 @@ api.getInitialCards().then((cards) => {
   let section = new Section(
     {
       items: cards,
-      renderer: (cardData) => {
-        const sectionCard = createCard(cardData);
-        section.addItem(sectionCard);
-      },
+      renderer: createCard,
     },
     ".cards__list"
   );
-
   section.renderItems();
 });
 
@@ -110,23 +106,9 @@ function handleImageClick({ name, link }) {
 }
 
 // Function to handle card deletion
-function handleDeleteCard(cardId) {
+function handleDeleteCard(cardID) {
   cardDeletePopup.open();
-  cardDeletePopup.setSubmitAction(() => {
-    cardDeletePopup.setLoading(true, "Deleting card...");
-    api
-      .deleteCard(card.id)
-      .then(() => {
-        card.handleDeleteCard();
-        cardDeletePopup.close();
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        cardDeletePopup.setLoading(false, "Yes");
-      });
-  });
+  api.deleteCard(cardID);
 }
 
 // Function to handle adding a new card
@@ -149,21 +131,25 @@ function handleAddCardSubmit(inputValues) {
     });
 }
 
+api.getUserInfo().then((userData) => {
+  userInfo.setUserInfo({
+    name: userData.name,
+    description: userData.about,
+    avatar: userData.avatar,
+  });
+});
 // Function to handle profile edit
-function handleEditProfileSubmit({ name, description }) {
-  profileEditPopup.setLoading(true);
 
+function handleEditProfileSubmit(inputValues) {
   api
-    .updateUserInfo(name, description)
-    .then(() => {
-      profileEditPopup.setLoading(false);
+    .editProfile(inputValues.name, inputValues.about)
+    .then((data) => {
+      userInfo.setUserInfo(data.name, data.about);
       editProfilePopup.close();
     })
     .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      profileEditPopup.setLoading(false);
+      console.error("Error updating profile:", err);
+      // You can also display an error message to the user here
     });
 }
 

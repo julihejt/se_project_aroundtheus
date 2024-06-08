@@ -66,7 +66,6 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 //const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 //const addModal = document.querySelector("#profile__add-form");
 const addForm = document.querySelector("#add__card-form");
-const profileAvatarButton = document.querySelector(".profile__edit-button");
 //const placeInput = document.querySelector("#addCard-title-input");
 //const placeInputUrl = document.querySelector("#addCard-description-input");
 //const closeButtonPlace = document.querySelector("#profile__close-modal");
@@ -99,16 +98,19 @@ const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 
 const profileAvatarPopup = new PopupWithForm(
   "#profile-avatar-modal",
-  handleAvatarSubmit,
-  profileAvatarButton
+  handleAvatarSubmit
 );
 
-profileAvatarButton.addEventListener("click", () => {
-  profileAvatarPopup.open();
-});
-profileAvatarPopup.setEventListeners();
+const profileAvatarButton = document.querySelector(".profile__avatar-button");
 
-// Card delete popup
+if (profileAvatarButton) {
+  profileAvatarButton.addEventListener("click", () => {
+    profileAvatarPopup.open();
+  });
+  profileAvatarPopup.setEventListeners();
+}
+
+// Declare and initialize cardDeletePopup
 const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
 cardDeletePopup.setEventListeners();
 
@@ -118,12 +120,12 @@ function handleImageClick({ name, link }) {
 }
 
 // Function to handle card deletion
-function handleDeleteCard(card, id) {
+function handleDeleteCard(card) {
   cardDeletePopup.open();
   cardDeletePopup.setSubmitAction(() => {
     cardDeletePopup.setLoading(true, "Deleting...");
     api
-      .deleteCard(id)
+      .deleteCard(card.id)
       .then(() => {
         card.handleDeleteCard();
         cardDeletePopup.close();
@@ -174,8 +176,10 @@ function handleEditProfileSubmit(inputValues) {
       editProfilePopup.close();
     })
     .catch((err) => {
-      console.error("Error updating profile:", err);
-      // You can also display an error message to the user here
+      console.error(err);
+    })
+    .finally(() => {
+      editProfilePopup.setLoading(false);
     });
 }
 

@@ -13,7 +13,7 @@ export default class Card {
     }
     this._name = data.name;
     this._link = data.link;
-    this._cardId = data.id;
+    this._cardId = data._id;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCard = handleDeleteCard;
@@ -34,13 +34,13 @@ export default class Card {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeIconClick(this._cardId);
+        this._handleLikeIconClick(this);
       });
 
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
-        this._handleDeleteCard(this._cardId);
+        this._handleDeleteCard(this);
       });
   }
 

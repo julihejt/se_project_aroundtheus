@@ -60,7 +60,7 @@ export const profileAddButton = document.querySelector(".profile__add-button");
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
 export const addForm = document.querySelector("#add__card-form");
 export const profileAvatarButton = document.querySelector(
-  "#profile-avatar-button"
+  ".profile__avatar-modal"
 );
 
 export const cardDeleteButton = document.querySelector(".card__delete-button");

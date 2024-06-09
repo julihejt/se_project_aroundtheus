@@ -25,8 +25,13 @@
             alt="avatar"
             class="profile__image"
           />
+          <img
+            src="<%=require('./images/Edit Avatar.svg')%>"
+            alt="Edit Avatar"
+            class="profile__image-hover"
+          />
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               type="button"
@@ -144,18 +149,18 @@
           type="button"
           id="edit-avatar-close-button"
         ></button>
-        <form class="modal__form">
+        <form class="modal__form" id="avatar-form">
           <h1 class="modal__title">Change profile picture</h1>
           <input
             type="url"
-            name="url"
+            name="avatar"
             id="avatar-picture-input"
             class="modal__image modal__input_type_url"
-            placeholder="Image url"
+            placeholder="Image URL"
             required
           />
           <span class="modal__error" id="avatar-picture-input-error"></span>
-          <button class="modal__button" type="submit" disabled>
+          <button class="modal__button" type="submit">
             <span class="modal__button-text">Save</span>
           </button>
         </form>

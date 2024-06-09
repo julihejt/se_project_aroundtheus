@@ -55,15 +55,16 @@ const editProfilePopup = new PopupWithForm(
 const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 const profileAvatarPopup = new PopupWithForm(
   "#profile-avatar-modal",
-  handleAvatarSubmit
+  handleAvatarSubmit,
+  "saving..."
 );
+
+profileAvatarPopup.setEventListeners();
+
 const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
 
 /* ------------------------------ Section ----------------------------- */
-const section = new Section(
-  { items: initialCards, renderer: createCard },
-  ".cards__list"
-);
+let section;
 
 /* ------------------------------ API Calls ----------------------------- */
 api
@@ -82,7 +83,7 @@ api
 api
   .getInitialCards()
   .then((cards) => {
-    let section = new Section(
+    section = new Section(
       {
         items: cards,
         renderer: createCard,
@@ -122,13 +123,43 @@ function createCard(data) {
     data,
     "#card-template",
     handleImageClick,
-    handleDeleteCard
+    handleDeleteCard,
+    handleLikeIconClick,
+    handleUnlikeIconClick
   );
   return card.getView();
 }
 
 function handleImageClick({ name, link }) {
   imagePopup.open({ name, link });
+}
+
+function handleLikeIconClick(card) {
+  api
+    .likeCard(card.id)
+    .then((data) => {
+      // like the card on the dom
+      card.likeHeartIcon();
+      // set isLiked to true
+      card.isLiked = true;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+function handleUnlikeIconClick(card) {
+  api
+    .removeLike(card.id)
+    .then((data) => {
+      // unlike the card visually
+      card.unlikeHeartIcon();
+      // set isLiked to false
+      card.isLiked = false;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function handleDeleteCard(card) {
@@ -171,9 +202,12 @@ function handleAddCardSubmit(inputValues) {
 
 function handleEditProfileSubmit(inputValues) {
   api
-    .editProfile(inputValues.name, inputValues.about)
+    .editProfile(inputValues.title, inputValues.description)
     .then((data) => {
-      userInfo.setUserInfo(data.name, data.about);
+      userInfo.setUserInfo({
+        name: data.name,
+        description: data.about,
+      });
       editProfilePopup.close();
     })
     .catch((err) => {
@@ -207,6 +241,3 @@ function renderCards(cardData) {
   addForm.reset();
   addCardFormValidator.disableButton();
 }
-
-/* ------------------------------ Initial Rendering ----------------------------- */
-section.renderItems();

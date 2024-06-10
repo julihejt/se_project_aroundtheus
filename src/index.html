@@ -20,16 +20,14 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau(1).png')%>"
-            alt="avatar"
-            class="profile__image"
-          />
-          <img
-            src="<%=require('./images/Edit Avatar.svg')%>"
-            alt="Edit Avatar"
-            class="profile__image-hover profile__avatar-button"
-          />
+          <div class="profile__image-container">
+            <img src="" alt="avatar" class="profile__image" />
+            <img
+              src="<%=require('./images/Edit Avatar.svg')%>"
+              alt="Edit Avatar"
+              class="profile__image-hover profile__avatar-button"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
             <button
@@ -155,7 +153,7 @@
             type="url"
             name="avatar"
             id="avatar-picture-input"
-            class="modal__image modal__input_type_url"
+            class="modal__input"
             placeholder="Image URL"
             required
           />

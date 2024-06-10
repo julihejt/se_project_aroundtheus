@@ -23,7 +23,7 @@ const api = new Api({
 const userInfo = new UserInfo({
   name: ".profile__title",
   description: "#profile__description",
-  avatarImage: ".profile__image",
+  avatar: ".profile__image",
 });
 
 /* ------------------------------ DOM Elements ----------------------------- */
@@ -59,22 +59,22 @@ const profileAvatarPopup = new PopupWithForm(
   "saving..."
 );
 
-profileAvatarPopup.setEventListeners();
-
 const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
 
 /* ------------------------------ Section ----------------------------- */
 let section;
 
 /* ------------------------------ API Calls ----------------------------- */
+// get user info from server
 api
   .getUserInfo()
   .then((userData) => {
+    // set the name, description and avatar of the user on the dom
     userInfo.setUserInfo({
       name: userData.name,
       description: userData.about,
-      avatar: userData.avatar,
     });
+    userInfo.updateAvatar(userData.avatar);
   })
   .catch((err) => {
     console.error(err);
@@ -114,7 +114,6 @@ if (profileAvatarButton) {
   });
 }
 
-profileAvatarPopup.setEventListeners();
 cardDeletePopup.setEventListeners();
 
 /* ------------------------------ Functions ----------------------------- */
@@ -182,7 +181,7 @@ function handleDeleteCard(card) {
 }
 
 function handleAddCardSubmit(inputValues) {
-  console.log("Add Card Input Values:", inputValues); // Debug line
+  console.log("Add Card Input Values:", inputValues);
   const cardData = {
     name: inputValues.title,
     link: inputValues.url,
@@ -205,8 +204,11 @@ function handleEditProfileSubmit(inputValues) {
   console.log("Edit Profile Input Values", inputValues);
   api
     .editProfile(inputValues.title, inputValues.description)
-    .then((data) => {
-      userInfo.setUserInfo(data.name, data.about);
+    .then(() => {
+      userInfo.setUserInfo({
+        name: inputValues.title,
+        description: inputValues.description,
+      });
       editProfilePopup.close();
     })
     .catch((err) => {
@@ -217,12 +219,12 @@ function handleEditProfileSubmit(inputValues) {
     });
 }
 
-function handleAvatarSubmit(url) {
+function handleAvatarSubmit(inputValues) {
   profileAvatarPopup.setLoading(true);
   api
-    .updateAvatar(url)
-    .then((userData) => {
-      userInfo.setAvatar(userData);
+    .updateAvatar(inputValues.avatar)
+    .then(() => {
+      userInfo.updateAvatar(inputValues.avatar);
       profileAvatarPopup.close();
     })
     .catch((err) => {

@@ -89,11 +89,11 @@ export default class Api {
     );
   }
 
-  editProfile(name, about) {
+  editProfile(name, description) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ name, description }),
+      body: JSON.stringify({ name: name, about: description }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -102,19 +102,19 @@ export default class Api {
     });
   }
 
-  updateProfileInfo({ name, about }) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({ name, about }),
-    }).then(this._checkResponse);
-  }
+  //updateProfileInfo(name, about) {
+  //return fetch(`${this._baseUrl}/users/me`, {
+  //method: "PATCH",
+  //headers: this._headers,
+  //body: JSON.stringify({ name, about }),
+  //}).then(this._checkResponse);
+  //}
 
-  updateAvatar({ updateAvatar }) {
+  updateAvatar(url) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar }),
+      body: JSON.stringify({ avatar: url }),
     }).then((res) => {
       if (res.ok) {
         return res.json();

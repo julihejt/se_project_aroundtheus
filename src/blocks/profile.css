@@ -26,6 +26,7 @@
   transition: opacity 0.5s;
   position: absolute;
   cursor: pointer;
+  left: 170px;
 }
 
 .profile__image-container:hover .profile__image-hover {

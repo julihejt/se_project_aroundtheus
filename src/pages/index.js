@@ -182,6 +182,7 @@ function handleDeleteCard(card) {
 }
 
 function handleAddCardSubmit(inputValues) {
+  console.log("Add Card Input Values:", inputValues); // Debug line
   const cardData = {
     name: inputValues.title,
     link: inputValues.url,
@@ -201,17 +202,15 @@ function handleAddCardSubmit(inputValues) {
 }
 
 function handleEditProfileSubmit(inputValues) {
+  console.log("Edit Profile Input Values", inputValues);
   api
     .editProfile(inputValues.title, inputValues.description)
     .then((data) => {
-      userInfo.setUserInfo({
-        name: data.name,
-        description: data.about,
-      });
+      userInfo.setUserInfo(data.name, data.about);
       editProfilePopup.close();
     })
     .catch((err) => {
-      console.error(err);
+      console.error("Error updating profile:", err);
     })
     .finally(() => {
       editProfilePopup.setLoading(false);

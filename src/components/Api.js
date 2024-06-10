@@ -93,7 +93,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ name, about }),
+      body: JSON.stringify({ name, description }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -110,11 +110,11 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  updateAvatar(avatar) {
+  updateAvatar({ updateAvatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar, about }),
+      body: JSON.stringify({ avatar }),
     }).then((res) => {
       if (res.ok) {
         return res.json();

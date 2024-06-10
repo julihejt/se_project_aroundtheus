@@ -25,28 +25,15 @@
   padding: 47px;
   transition: opacity 0.5s;
   position: absolute;
-}
-
-.profile__image-parent:hover .profile__image-hover {
-  opacity: 1;
   cursor: pointer;
 }
 
-.profile__image-parent {
-  width: 120px;
-  height: 120px;
-  margin-right: 30px;
-  position: relative;
-  border-radius: 50%;
+.profile__image-container:hover .profile__image-hover {
+  opacity: 1;
 }
 
-.profile__image-parent:hover .profile__image {
+.profile__image-container:hover .profile__image {
   opacity: 0.2;
-}
-
-.profile__image-parent:hover .profile__image-hover {
-  opacity: 1;
-  cursor: pointer;
 }
 
 .profile__description {

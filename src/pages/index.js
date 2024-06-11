@@ -203,7 +203,7 @@ function handleAddCardSubmit(inputValues) {
     .catch((err) => {
       console.error(err);
     })
-    .finally(() => addCardPopup.hideLoading());
+    .finally(() => addCardPopup.setLoading());
 }
 
 function handleEditProfileSubmit(inputValues) {

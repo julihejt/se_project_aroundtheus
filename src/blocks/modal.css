@@ -12,10 +12,11 @@
   visibility: hidden;
   margin: auto;
   opacity: 0;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .modal__title {
-  font-family: "Inter", Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   font-size: 20px;
   line-height: 14.52px;
   width: 350px;
@@ -31,7 +32,7 @@
 }
 
 .modal__heading {
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   width: 100%;
   font-size: 24px;
   line-height: 29px;
@@ -86,7 +87,7 @@
   padding-left: 8px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 1);
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .modal__input:last-child {
@@ -98,7 +99,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .modal__heading {
@@ -134,7 +135,7 @@
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   border: none;
   border-radius: 2px;
 }
@@ -160,7 +161,7 @@
   color: white;
   margin: 0;
   top: calc(100% + 10px);
-  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   font-weight: 400;
   font-size: 12px;
 }

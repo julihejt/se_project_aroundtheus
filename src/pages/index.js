@@ -245,7 +245,4 @@ function handleAvatarSubmit(inputValues) {
 function renderCards(cardData) {
   const cardElement = createCard(cardData);
   section.addItem(cardElement);
-  addCardPopup.close();
-  addForm.reset();
-  addCardFormValidator.disableButton();
 }

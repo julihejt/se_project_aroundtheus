@@ -5,11 +5,15 @@
 Project Overview
 AroundTheUS is a web application designed to showcase different locations around the United States. It features interactive cards, modals, and a responsive layout to enhance the user experience. Whether you're planning a trip or just curious about different places, AroundTheUS provides a visually appealing way to explore.
 
-Features
-Interactive Cards: Cards displaying images and descriptions of various locations.
-Responsive Design: Optimized for both desktop and mobile viewing.
-Dynamic Modals: Detailed views of locations in pop-up modals.
-User Interaction: Like and delete functionality for cards.
+# Features
+
+**Interactive Cards:** Cards displaying images and descriptions of various locations.
+
+**Responsive Design:** Optimized for both desktop and mobile viewing.
+
+**Dynamic Modals:** Detailed views of locations in pop-up modals.
+
+**User Interaction:** Like and delete functionality for cards.
 
 **Figma**  
   

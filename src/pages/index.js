@@ -45,18 +45,22 @@ profileFormValidator.enableValidation();
 const addCardFormValidator = new FormValidation(formSettings, addForm);
 addCardFormValidator.enableValidation();
 
+const avatarFormValidator = new FormValidation(formSettings, profileEditModal);
+avatarFormValidator.enableValidation();
+
 /* ------------------------------ Popups ----------------------------- */
 const imagePopup = new PopupWithImage("#preview-image-modal");
 
 const editProfilePopup = new PopupWithForm(
   "#profile-edit-modal",
-  handleEditProfileSubmit
+  handleEditProfileSubmit,
+  "Saving..."
 );
 const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 const profileAvatarPopup = new PopupWithForm(
   "#profile-avatar-modal",
   handleAvatarSubmit,
-  "saving..."
+  "Saving..."
 );
 
 const cardDeletePopup = new PopupWithConfirmation("#delete-card-modal");
@@ -181,6 +185,7 @@ function handleDeleteCard(card) {
 }
 
 function handleAddCardSubmit(inputValues) {
+  addCardPopup.setLoading(true, "Adding...");
   console.log("Add Card Input Values:", inputValues);
   const cardData = {
     name: inputValues.title,
@@ -197,10 +202,12 @@ function handleAddCardSubmit(inputValues) {
     })
     .catch((err) => {
       console.error(err);
-    });
+    })
+    .finally(() => addCardPopup.hideLoading());
 }
 
 function handleEditProfileSubmit(inputValues) {
+  editProfilePopup.setLoading(true, "Saving...");
   console.log("Edit Profile Input Values", inputValues);
   api
     .editProfile(inputValues.title, inputValues.description)
@@ -220,7 +227,7 @@ function handleEditProfileSubmit(inputValues) {
 }
 
 function handleAvatarSubmit(inputValues) {
-  profileAvatarPopup.setLoading(true);
+  profileAvatarPopup.setLoading(true, "Saving...");
   api
     .updateAvatar(inputValues.avatar)
     .then(() => {

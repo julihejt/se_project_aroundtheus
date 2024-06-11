@@ -1,15 +1,16 @@
-# Project Name: Around The U.S.
-
-### Overview  
-
-* Intro  
-* Figma  
-* Images  
+# Project Name: Around The U.S. 
   
 **Intro**
   
-Welcome to the exciting journey of building "Around The U.S.," a dynamic and interactive web project that brings the joy of photo sharing and profile adjustments to life. In this endeavor, you'll embark on a comprehensive exploration of responsive web design, leveraging the power of media queries, flexible layouts, and meticulous attention to detail.
-  
+Project Overview
+AroundTheUS is a web application designed to showcase different locations around the United States. It features interactive cards, modals, and a responsive layout to enhance the user experience. Whether you're planning a trip or just curious about different places, AroundTheUS provides a visually appealing way to explore.
+
+Features
+Interactive Cards: Cards displaying images and descriptions of various locations.
+Responsive Design: Optimized for both desktop and mobile viewing.
+Dynamic Modals: Detailed views of locations in pop-up modals.
+User Interaction: Like and delete functionality for cards.
+
 **Figma**  
   
 * [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  

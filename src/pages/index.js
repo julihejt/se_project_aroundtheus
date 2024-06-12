@@ -7,7 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
-import { initialCards, formSettings } from "../utils/constants.js";
+import { initialCards, formSettings, avatarForm } from "../utils/constants.js";
 import "../pages/index.css";
 
 /* ------------------------------ API Instance ----------------------------- */

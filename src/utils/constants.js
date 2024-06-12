@@ -59,6 +59,7 @@ export const profileEditModal = document.querySelector("#profile-edit-modal");
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
 export const addForm = document.querySelector("#add__card-form");
+export const avatarForm = document.querySelector("#profile-avatar-form");
 export const profileAvatarButton = document.querySelector(
   ".profile__avatar-modal"
 );

@@ -37,7 +37,7 @@ const profileAddButton = document.querySelector(".profile__add-button");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addForm = document.querySelector("#add__card-form");
-
+const avatarModal = document.querySelector("#profile-avatar-modal");
 /* ------------------------------ Form Validators ----------------------------- */
 const profileFormValidator = new FormValidation(formSettings, profileEditForm);
 profileFormValidator.enableValidation();
@@ -45,8 +45,8 @@ profileFormValidator.enableValidation();
 const addCardFormValidator = new FormValidation(formSettings, addForm);
 addCardFormValidator.enableValidation();
 
-const avatarFormValidator = new FormValidation(formSettings, profileEditModal);
-avatarFormValidator.enableValidation();
+const avatarModalValidator = new FormValidation(formSettings, avatarModal);
+avatarModalValidator.enableValidation();
 
 /* ------------------------------ Popups ----------------------------- */
 const imagePopup = new PopupWithImage("#preview-image-modal");

@@ -138,6 +138,7 @@
   font-family: Inter, Arial, sans-serif;
   border: none;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .modal__button:hover {
@@ -177,9 +178,10 @@
 }
 
 .modal__button_disabled {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.2);
+  border: rgba(0, 0, 0, 0.2) 1px solid;
   cursor: default;
-  background-color: #ffffff;
-  border: 1px solid #808080;
 }
 
 .modal__button:hover:not(:disabled) {

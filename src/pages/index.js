@@ -7,7 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
-import { initialCards, formSettings, avatarForm } from "../utils/constants.js";
+import { formSettings } from "../utils/constants.js";
 import "../pages/index.css";
 
 /* ------------------------------ API Instance ----------------------------- */
@@ -37,7 +37,7 @@ const profileAddButton = document.querySelector(".profile__add-button");
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addForm = document.querySelector("#add__card-form");
-const avatarModal = document.querySelector("#profile-avatar-modal");
+const avatarForm = document.querySelector("#profile-avatar-form");
 /* ------------------------------ Form Validators ----------------------------- */
 const profileFormValidator = new FormValidation(formSettings, profileEditForm);
 profileFormValidator.enableValidation();
@@ -45,8 +45,8 @@ profileFormValidator.enableValidation();
 const addCardFormValidator = new FormValidation(formSettings, addForm);
 addCardFormValidator.enableValidation();
 
-const avatarModalValidator = new FormValidation(formSettings, avatarModal);
-avatarModalValidator.enableValidation();
+const avatarFormValidator = new FormValidation(formSettings, avatarForm);
+avatarFormValidator.enableValidation();
 
 /* ------------------------------ Popups ----------------------------- */
 const imagePopup = new PopupWithImage("#preview-image-modal");
@@ -58,7 +58,7 @@ const editProfilePopup = new PopupWithForm(
 );
 const addCardPopup = new PopupWithForm("#add-card-modal", handleAddCardSubmit);
 const profileAvatarPopup = new PopupWithForm(
-  "#profile-avatar-modal",
+  "#profile-avatar-form",
   handleAvatarSubmit,
   "Saving..."
 );

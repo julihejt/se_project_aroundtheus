@@ -1,11 +1,11 @@
-import Popup from "./Popup";
+import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
   constructor(popupSelector) {
-    super(popupSelector);
-    console.log(this._popupElement); // Add this line
+    super({ popupSelector });
+    //console.log(this._popupElement); //
     this._popupForm = this._popupElement.querySelector(".modal__form");
-    console.log(this._popupForm); // And this line
+    //console.log(this._popupForm); //
     this._submitButton = this._popupForm.querySelector(".modal__button");
     this._submitButtonContent = this._submitButton.textContent;
   }
@@ -21,7 +21,7 @@ export default class PopupWithConfirmation extends Popup {
   }
 
   setSubmitAction(action) {
-    this._submitButton.textContent = action;
+    this._handleFormSubmit = action;
   }
 
   setEventListeners() {
@@ -29,6 +29,6 @@ export default class PopupWithConfirmation extends Popup {
       e.preventDefault();
       this._handleFormSubmit();
     });
-    super.addEventListeners();
+    super.setEventListeners();
   }
 }

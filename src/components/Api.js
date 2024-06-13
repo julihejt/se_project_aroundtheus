@@ -11,36 +11,12 @@ export default class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
+  /* ------------------------------ Card Methods ------------------------------ */
+
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  renderCards() {
-    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
-  }
-
-  updateProfileInfo({ name, about }) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({ name, about }),
-    }).then(this._checkResponse);
-  }
-
-  updateAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify(avatar),
-    }).then(this._checkResponse);
+    return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
+      this._checkResponse
+    );
   }
 
   createNewCard(data) {
@@ -61,7 +37,7 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  addLike(cardId) {
+  likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
@@ -73,5 +49,35 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(this._checkResponse);
+  }
+
+  /* ------------------------------ User Methods ------------------------------ */
+
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
+      this._checkResponse
+    );
+  }
+
+  editProfile(name, description) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ name: name, about: description }),
+    }).then(this._checkResponse);
+  }
+
+  updateAvatar(url) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ avatar: url }),
+    }).then(this._checkResponse);
+  }
+
+  /* ------------------------------ Misc Methods ------------------------------ */
+
+  renderCards() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 }

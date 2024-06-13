@@ -20,13 +20,16 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau(1).png')%>"
-            alt="avatar"
-            class="profile__image"
-          />
+          <div class="profile__image-container">
+            <img src="" alt="avatar" class="profile__image" />
+            <img
+              src="<%=require('./images/Edit Avatar.svg')%>"
+              alt="Edit Avatar"
+              class="profile__image-hover profile__avatar-button"
+            />
+          </div>
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               type="button"
@@ -131,7 +134,37 @@
             type="submit"
             disabled="true"
           >
-            <span class="modal__saved">Save</span>
+            <span class="modal__saved" type="">Save</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- ----------------------- Edit Avatar modal -------------------------->
+    <div class="modal" id="profile-avatar-form">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          type="button"
+          id="edit-avatar-close-button"
+        ></button>
+        <p class="modal__heading">Change profile picture</p>
+        <form class="modal__form" id="avatar-form">
+          <label class="modal__label">
+            <input
+              type="url"
+              name="avatar"
+              id="avatar-picture-input"
+              class="modal__input"
+              placeholder="Image URL"
+              required
+            />
+            <span
+              class="modal__span modal__error"
+              id="avatar-picture-input-error"
+            ></span>
+          </label>
+          <button class="modal__button modal__button_disabled" disabled>
+            Save
           </button>
         </form>
       </div>

@@ -21,7 +21,7 @@ AroundTheUS is a web application designed to showcase different locations around
   
 **Images**  
 
-Link to github page: https://julihejt.github.io/aroundtheus_project/
+Link to github page: [https://github.com/julihejt/se_project_aroundtheus]
 
 Link to video overview:
 https://drive.google.com/file/d/1rQyYbhWIhrDMr9TS_aZ7uZ9bozT5hP1h/view?usp=sharing
